@@ -1,0 +1,5 @@
+include ':apt'
+include ':aptAnn'
+include ':sql'
+include ':app'
+rootProject.name = "MinorSQL"
