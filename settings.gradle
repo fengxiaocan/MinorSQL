@@ -1,5 +1,5 @@
-include ':apt'
-include ':aptAnn'
-include ':sql'
+include ':minorSQL-compiler'
+include ':minorSQL-ann'
+include ':minorSQL-api'
 include ':app'
 rootProject.name = "MinorSQL"

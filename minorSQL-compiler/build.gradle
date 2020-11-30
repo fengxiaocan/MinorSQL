@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'com.github.dcendents.android-maven'
 }
+group='com.github.fengxiaocan'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -12,7 +13,7 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc6'
     implementation 'com.squareup:javapoet:1.11.1'
 
-    api project(path: ':aptAnn')
+    api project(path: ':minorSQL-ann')
 }
 
 java {

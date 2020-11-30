@@ -35,7 +35,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'com.github.fengxiaocan:DebugBox:latest.release'
-    annotationProcessor project(path: ':apt')
+    annotationProcessor project(path: ':minorSQL-compiler')
 //    implementation project(path: ':aptAnn')
-    implementation project(path: ':sql')
+    implementation project(path: ':minorSQL-api')
 }
