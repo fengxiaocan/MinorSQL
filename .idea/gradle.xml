@@ -12,9 +12,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/minorSQL-ann" />
-            <option value="$PROJECT_DIR$/minorSQL-api" />
-            <option value="$PROJECT_DIR$/minorSQL-compiler" />
+            <option value="$PROJECT_DIR$/msql-ann" />
+            <option value="$PROJECT_DIR$/msql-api" />
+            <option value="$PROJECT_DIR$/msql-compiler" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

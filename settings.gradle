@@ -1,5 +1,5 @@
-include ':minorSQL-compiler'
-include ':minorSQL-ann'
-include ':minorSQL-api'
+include ':msql-compiler'
+include ':msql-ann'
+include ':msql-api'
 include ':app'
 rootProject.name = "MinorSQL"

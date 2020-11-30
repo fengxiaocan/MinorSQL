@@ -30,5 +30,5 @@ android {
 }
 
 dependencies {
-    api project(path: ':minorSQL-ann')
+    api project(path: ':msql-ann')
 }
