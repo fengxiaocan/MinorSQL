@@ -7,12 +7,20 @@ public class AsyncDataExecutor<T> extends Executor {
     private DataCallback<T> cb;
     private boolean isAsync = false;
 
-    public void asyncListen(DataCallback<T> callback) {
+    /**
+     * 在主线程回调结果
+     * @param callback
+     */
+    public void mainListen(DataCallback<T> callback) {
         this.cb = callback;
         this.isAsync = true;
         execute();
     }
 
+    /**
+     * 同步同线程回调
+     * @param callback
+     */
     public void listen(DataCallback<T> callback) {
         this.cb = callback;
         this.isAsync = false;

@@ -64,6 +64,33 @@ public abstract class MinorSQL implements IMinorSQL {
         return registerTempTable(modelClass.getName(), tableTag);
     }
 
+    public MinorSQLHandler tempTable(String modelClass, String tableTag) {
+        return table(registerTempTable(modelClass, tableTag));
+    }
+
+    public <T> MinorSQLHandler tempTable(Class<T> modelClass, String tableTag) {
+        return table(registerTempTable(modelClass, tableTag));
+    }
+
+    public AsyncDataExecutor<MinorSQLHandler> tempTableAsync(String modelClass, String tableTag) {
+        AsyncDataExecutor<MinorSQLHandler> executor = new AsyncDataExecutor<>();
+        executor.submit(() -> {
+            synchronized (Object.class) {
+                executor.call(table(registerTempTable(modelClass, tableTag)));
+            }
+        });
+        return executor;
+    }
+
+    public <T> AsyncDataExecutor<MinorSQLHandler> tempTableAsync(Class<T> modelClass, String tableTag) {
+        AsyncDataExecutor<MinorSQLHandler> executor = new AsyncDataExecutor<>();
+        executor.submit(() -> {
+            synchronized (Object.class) {
+                executor.call(table(registerTempTable(modelClass, tableTag)));
+            }
+        });
+        return executor;
+    }
 
     /**
      * 重新创建数据表

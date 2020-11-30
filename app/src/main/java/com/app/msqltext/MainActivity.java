@@ -9,12 +9,9 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.app.annotation.SQLite;
 import com.app.msql.MSQLHelper;
 import com.box.libs.DebugBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 while (index < maxCount) {
                     index++;
                     synchronized (Object.class) {
-                        final int dataCount = 20;
+                        final int dataCount = 100;
                         TestV[] array = new TestV[dataCount];
                         for (int i = 0; i < dataCount; i++) {
                             TestV support = new TestV();
@@ -58,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
                         }
                         long start = System.currentTimeMillis();
 //                        MSQLHelper.SQL().table(TestVSQL.DEFAULT_TABLE).asWhere().whereEqual("name", "李宇春").updateOrThrow(array[0]);
-                        List<TestV> list = MSQLHelper.SQL().model(TestV.class).asQuery().find(TestV.class);
+                        MSQLHelper.SQL().registerTempTable(TestV.class, "4515");
 
                         final long l = System.currentTimeMillis() - start;
                         totalTime += l;
                         Log.e("noah", "单次耗时:" + l + "ms  平均耗时:" + (totalTime / index) + "ms");
-                        if (list != null) {
-                            for (TestV testV : list) {
-                                Log.e("noah", testV.name() + " --- " + testV.getSQLiteID());
-                            }
-                        }
                     }
                     SystemClock.sleep(100);
                 }
             }).start();
+        });
+        long start = System.currentTimeMillis();
+        MSQLHelper.SQL().tempTableAsync(TestV.class, "das51").listen(data -> {
+            final long l = System.currentTimeMillis() - start;
+            Log.e("noah", "单次耗时:" + l + "ms");
         });
         DebugBox.get().open();
     }

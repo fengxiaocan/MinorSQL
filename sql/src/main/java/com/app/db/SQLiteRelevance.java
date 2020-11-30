@@ -2,7 +2,6 @@ package com.app.db;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.security.MessageDigest;
@@ -20,7 +19,7 @@ public class SQLiteRelevance  {
     private static final String TYPE = "type";//对应的类的全路径
     private static final String TAG = "tag";//独有唯一的标记,实现为 type+用户输入的标记 的MD5值
     private static final String TYPE_SELECTION = TYPE+" = ?";
-    private static final String TAG_SELECTION = TAG + " = ?";
+    private static final String QUERY_SQL = "SELECT * FROM "+TABLE+" WHERE "+TAG + " = ?";
 
     public static final String CREATE_SQL = "CREATE TABLE " + TABLE + "(_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+TYPE+" TEXT,"+TAG+" TEXT)";
 
@@ -114,7 +113,7 @@ public class SQLiteRelevance  {
      * @return
      */
     private static String findByTag(SQLiteDatabase database, String tag) {
-        Cursor query = database.query(TABLE, null, TAG_SELECTION, new String[]{tag}, null, null, null);
+        Cursor query = database.rawQuery(QUERY_SQL,new String[]{tag});
         if (query.moveToLast()) {
             long id = query.getLong(0);
             return getTableName(id);
