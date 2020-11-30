@@ -23,27 +23,11 @@ public interface MISQLSupport {
 
     int update();
 
-//    int update(long... ids);
-
     int update(String tableName);
-
-//    int update(String tableName, long... ids);
-
-//    int update(String whereClause, String... conditions);
-
-//    int update(String tableName, String whereClause, String... conditions);
 
     int updateOrThrow();
 
-//    int updateOrThrow(long... ids);
-
     int updateOrThrow(String tableName);
-
-//    int updateOrThrow(String tableName, long... ids);
-
-//    int updateOrThrow(String whereClause, String... conditions);
-
-//    int updateOrThrow(String tableName, String whereClause, String... conditions);
 
     /******************替换或插入*****************/
 

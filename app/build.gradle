@@ -35,10 +35,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'com.github.fengxiaocan:DebugBox:latest.release'
-//    annotationProcessor project(path: ':msql-compiler')
-//    implementation project(path: ':aptAnn')
-    implementation project(path: ':msql-api')
-    annotationProcessor 'com.github.fengxiaocan.MinorSQL:apt:v1.0'
-    implementation 'com.github.fengxiaocan.MinorSQL:aptAnn:v1.0'
-//    implementation 'com.github.fengxiaocan:MinorSQL:v1.0'
+
+    //implementation 'com.github.fengxiaocan.MinorSQL:msql-ann:v1.0.0'
+    implementation 'com.github.fengxiaocan.MinorSQL:msql-api:v1.0.0'
+    annotationProcessor 'com.github.fengxiaocan.MinorSQL:msql-compiler:v1.0.0'
+//    implementation 'com.github.fengxiaocan:MinorSQL:v1.0.0'
 }

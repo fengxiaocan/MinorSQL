@@ -18,38 +18,63 @@ public final class QueryHandler extends DataQuery {
         super(databaseName, table);
     }
 
+    /**
+     * 选择需要查询的字段,相当于SQL语句的 SELECT columns FROM
+     * @param columns 查询的行
+     */
     public QueryHandler select(String... columns) {
         this.columns = columns;
         return this;
     }
-
+    /**
+     * 查询的是否唯一,相当于SQL语句的 SELECT DISTINCT * FROM
+     * @param unique 是否是唯一
+     */
     public QueryHandler distinct(boolean unique) {
         this.distinct = unique;
         return this;
     }
 
+    /**
+     * 查询的组排序
+     * @param groupBy SQL语句的 GROUP BY
+     * @param having SQL语句的 HAVING
+     */
     public QueryHandler groupBy(String groupBy, String having) {
         this.groupBy = groupBy;
         this.having = having;
         return this;
     }
-
+    /**
+     * 查询排序
+     * @param orderBy SQL语句的 ORDER BY
+     */
     public QueryHandler orderBy(String orderBy) {
         this.orderBy = orderBy;
         return this;
     }
-
+    /**
+     * 查询排序
+     * @param orderBy SQL语句的 ORDER BY
+     * @param desc 是否为倒序 SQL语句的 DESC
+     */
     public QueryHandler orderBy(String orderBy, boolean desc) {
         this.orderBy = orderBy;
         this.isDesc = desc;
         return this;
     }
-
+    /**
+     * 查询多少个数据
+     * @param limit SQL语句的 LIMIT
+     */
     public QueryHandler limit(int limit) {
         this.limit = limit;
         return this;
     }
-
+    /**
+     * 查询数据偏移量
+     * @param offset SQL语句的 OFFSET
+     */
     public QueryHandler offset(int offset) {
         this.offset = offset;
         return this;
