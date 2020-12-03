@@ -261,7 +261,9 @@
               .tempTableAsync(JavaBeanSQL.class, "http://***.com/api/1000")
               .listen(data -> {
                     data.insert(bean);
-              });          
+              });     
+    //15.以某个字段来作为条件更新,例如以bean中的version的字段来作为条件更新
+    MSQLHelper.SQL().table(JavaBeanSQL.otherTableName).update("version",bean);               
 
 
 
