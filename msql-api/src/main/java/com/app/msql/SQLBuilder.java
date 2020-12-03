@@ -261,11 +261,10 @@ class SQLBuilder {
         }
     }
 
-
     /**
      * 通过构建 replace 数据SQL语句批量插入数据,性能提升可达到几十到一百多倍
      *
-     * INSERT OR REPLACE INTO tableName (_ID, name, tag) VALUES (1, '李宇春', 'CEO') , (2, '李宇春', 'CEO')
+     * INSERT OR REPLACE INTO tableName ( name, tag) VALUES ( '李宇', 'CEO') , ( '李宇', 'CEO')
      * @param databaseName 数据库名称
      * @param tableName    数据表名称
      * @param list         数据列表
@@ -278,7 +277,7 @@ class SQLBuilder {
         try {
             //获取数据库
             database = getDatabase(databaseName);
-            //INSERT OR REPLACE INTO tableName (_ID, name, tag) VALUES (1, '李宇春', 'CEO') , (2, '李宇春', 'CEO')
+            //INSERT OR REPLACE INTO tableName ( name, tag) VALUES ( '李宇', 'CEO') , ( '李宇', 'CEO')
             //获取第一个数据
             MISQLSupport support1 = (MISQLSupport) list.get(0);
             support1.SQLiteValues(value);
@@ -291,7 +290,7 @@ class SQLBuilder {
             String[] keyArray = new String[keySize];
             keyArray = value.keySet().toArray(keyArray);
             //根据字段数量生成 (?,?,?) 的替代参数,方便下面统一添加
-            final int columnSize = keySize + 1;
+            final int columnSize = keySize ;
             final String args = builderBindArgs(columnSize);
             //如果数据库的table为空,获取默认的
             if (TextUtils.isEmpty(tableName)) {
@@ -302,7 +301,7 @@ class SQLBuilder {
             StringBuilder sql = new StringBuilder();
             sql.append("INSERT OR REPLACE INTO ");
             sql.append(tableName);
-            sql.append(" (_ID,");
+            sql.append(" (");
             for (int i = 0; i < keyArray.length; i++) {
                 sql.append(keyArray[i]);
                 if (i < keyArray.length - 1) {
@@ -314,7 +313,7 @@ class SQLBuilder {
             final String firstStr = sql.toString();
 
             //经过测试，一条SQLite语句的 ?,?,? 参数不能超过999个。
-            final int sqlMaxArgsSize = 999 / (columnSize);
+            final int sqlMaxArgsSize = 999 / columnSize;
 
             //按照能容纳的最大替代参数,分割输入的数组成块
             Object[] bindArgs = null;
@@ -362,9 +361,6 @@ class SQLBuilder {
                 //遍历块数组,开始组合替换参数数组
                 for (int i1 = 0; i1 < loopCount; i1++) {
                     MISQLSupport support = (MISQLSupport) list.get(arrayIndex);
-                    bindArgs[argsIndex] = support.getSQLiteID();
-                    argsIndex++;
-
                     value.clear();
                     support.SQLiteValues(value);
                     for (String key : keyArray) {

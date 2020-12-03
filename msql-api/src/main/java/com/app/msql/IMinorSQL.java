@@ -3,21 +3,21 @@ package com.app.msql;
 import java.util.List;
 
 interface IMinorSQL {
-    <T> long insertOrThrow(T... array);
+    <T> int insertOrThrow(T... array);
 
-    <T> long insert(T... array);
+    <T> int insert(T... array);
 
-    <T> long insertOrThrow(List<T> list);
+    <T> int insertOrThrow(List<T> list);
 
-    <T> long insert(List<T> list);
+    <T> int insert(List<T> list);
 
-    <T> long replaceOrThrow(T... array);
+    <T> int replaceOrThrow(T... array);
 
-    <T> long replace(T... array);
+    <T> int replace(T... array);
 
-    <T> long replaceOrThrow(List<T> list);
+    <T> int replaceOrThrow(List<T> list);
 
-    <T> long replace(List<T> list);
+    <T> int replace(List<T> list);
 
     <T> int deleteOrThrow(T... array);
 
@@ -35,22 +35,30 @@ interface IMinorSQL {
 
     <T> int update(List<T> list);
 
+    <T> int updateOrThrow(String column,T... array);
 
-    <T> AsyncDataExecutor<Long> insertOrThrowAsync(T... array);
+    <T> int update(String column,T... array);
 
-    <T> AsyncDataExecutor<Long> insertAsync(T... array);
+    <T> int updateOrThrow(String column,List<T> list);
 
-    <T> AsyncDataExecutor<Long> insertOrThrowAsync(List<T> list);
+    <T> int update(String column,List<T> list);
 
-    <T> AsyncDataExecutor<Long> insertAsync(List<T> list);
 
-    <T> AsyncDataExecutor<Long> replaceOrThrowAsync(T... array);
+    <T> AsyncDataExecutor<Integer> insertOrThrowAsync(T... array);
 
-    <T> AsyncDataExecutor<Long> replaceAsync(T... array);
+    <T> AsyncDataExecutor<Integer> insertAsync(T... array);
 
-    <T> AsyncDataExecutor<Long> replaceOrThrowAsync(List<T> list);
+    <T> AsyncDataExecutor<Integer> insertOrThrowAsync(List<T> list);
 
-    <T> AsyncDataExecutor<Long> replaceAsync(List<T> list);
+    <T> AsyncDataExecutor<Integer> insertAsync(List<T> list);
+
+    <T> AsyncDataExecutor<Integer> replaceOrThrowAsync(T... array);
+
+    <T> AsyncDataExecutor<Integer> replaceAsync(T... array);
+
+    <T> AsyncDataExecutor<Integer> replaceOrThrowAsync(List<T> list);
+
+    <T> AsyncDataExecutor<Integer> replaceAsync(List<T> list);
 
     <T> AsyncDataExecutor<Integer> deleteOrThrowAsync(T... array);
 

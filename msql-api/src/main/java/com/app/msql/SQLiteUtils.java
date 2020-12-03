@@ -1,10 +1,8 @@
 package com.app.msql;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.app.annotation.SQLite;
 import com.app.data.MISQLSupport;
 
 import java.util.Arrays;
@@ -177,6 +175,20 @@ public class SQLiteUtils extends SQLBuilder {
         }
     }
 
+    public static <T> int updateOrThrow(String databaseName, String tableName,String column, List<T> list) {
+        if (list == null || list.size() == 0) return -1;
+        return execUpdateSQL(databaseName, tableName, column, list);
+    }
+
+    public static <T> int update(String databaseName, String tableName,String column, List<T> list) {
+        try {
+            return updateOrThrow(databaseName, tableName,column, list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
 
     public static <T> int updateOrThrow(String databaseName, String tableName, T... array) {
         if (array == null || array.length == 0) return -1;
@@ -186,6 +198,20 @@ public class SQLiteUtils extends SQLBuilder {
     public static <T> int update(String databaseName, String tableName, T... array) {
         try {
             return updateOrThrow(databaseName, tableName, array);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public static <T> int updateOrThrow(String databaseName, String tableName,String column, T... array) {
+        if (array == null || array.length == 0) return -1;
+        return execUpdateSQL(databaseName, tableName, column, Arrays.asList(array));
+    }
+
+    public static <T> int update(String databaseName, String tableName,String column, T... array) {
+        try {
+            return updateOrThrow(databaseName, tableName, column,array);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MSQLHelper.init(getApplication(), 4);
+        MSQLHelper.init(getApplication(), 1);
         MSQLHelper.registerDatabase(TestV.class);
 
         super.onCreate(savedInstanceState);
@@ -33,6 +33,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
+            new Thread(() -> {
+                final int count = 4;
+                TestV[] array = new TestV[count];
+                for (int i = 0; i < count; i++) {
+                    TestV testV = new TestV();
+                    testV.setTag("testV"+i);
+                    testV.setName("182397128371298");
+                    testV.setTimes(123);
+                    array[i]=testV;
+                }
+//                MSQLHelper.SQL().insert(array);
+                SystemClock.sleep(100);
+//                TestV testV = new TestV();
+//                testV.setTag("testV11");
+//                testV.setName("sdaji");
+//                testV.setTimes(12323);
+                MSQLHelper.SQL().update(array);
+            }).start();
         });
         DebugBox.get().open();
     }

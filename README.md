@@ -219,7 +219,7 @@
     bean.delete();
     MSQLHelper.SQL().table(JavaBeanSQL.otherTableName).delete(bean);
 
-    //5.插入或更新,以id或者有unique的字段来更新,没有则插入新的数据
+    //5.插入或更新,以unique的字段来更新,没有则插入新的数据,以id为字段来更新的请使用update
     bean.replace();
     MSQLHelper.SQL().table(JavaBeanSQL.otherTableName).replace(bean);
     

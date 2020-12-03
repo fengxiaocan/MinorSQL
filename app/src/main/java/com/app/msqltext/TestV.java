@@ -7,12 +7,15 @@ import com.app.data.SQLSupport;
 @SQLite
 public class TestV extends SQLSupport {
     private String name;
+    @Column(ignore = true)
+    private int id;
     private int version = 1;
     private boolean isEager = false;
     private long times = 2;
     private char cha = 1;
-    @Column(defaultValue = "这是一段默认值")
+    @Column(unique = true)
     private String tag;
+
     private String ver;
 
     public String ver() {
@@ -29,6 +32,14 @@ public class TestV extends SQLSupport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int id() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int version() {

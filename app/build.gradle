@@ -37,7 +37,9 @@ dependencies {
     implementation 'com.github.fengxiaocan:DebugBox:latest.release'
 
     //implementation 'com.github.fengxiaocan.MinorSQL:msql-ann:v1.0.0'
-    implementation 'com.github.fengxiaocan.MinorSQL:msql-api:v1.0.0'
-    annotationProcessor 'com.github.fengxiaocan.MinorSQL:msql-compiler:v1.0.0'
+//    implementation 'com.github.fengxiaocan.MinorSQL:msql-api:v1.0.1'
+//    annotationProcessor 'com.github.fengxiaocan.MinorSQL:msql-compiler:v1.0.1'
 //    implementation 'com.github.fengxiaocan:MinorSQL:v1.0.0'
+    annotationProcessor project(path: ':msql-compiler')
+    implementation project(path: ':msql-api')
 }
