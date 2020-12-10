@@ -33,7 +33,7 @@ public class AsyncDataExecutor<T> extends Executor {
 
     void call(T t) {
         if (cb != null) {
-            if (isAsync) {
+            if (!isAsync) {
                 cb.finish(t);
             } else {
                 Executor.handler(() -> cb.finish(t));

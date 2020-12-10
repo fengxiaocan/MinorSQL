@@ -26,7 +26,7 @@ public class AsyncExecutor extends Executor {
 
     void call() {
         if (cb != null) {
-            if (isAsync) {
+            if (!isAsync) {
                 cb.finish();
             } else {
                 Executor.handler(() -> cb.finish());
