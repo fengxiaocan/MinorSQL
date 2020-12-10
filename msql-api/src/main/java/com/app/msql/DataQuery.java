@@ -46,8 +46,6 @@ abstract class DataQuery extends MinorWhere implements IDataQuery {
 
     protected abstract String conditions();
 
-    protected abstract String[] selectionArgs();
-
     @Override
     public <T> T findLast(Class<T> modelClass) {
         return findLast(modelClass.getName());

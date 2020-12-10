@@ -16,7 +16,7 @@ public class WhereHandler extends MinorWhere {
     }
 
     public void deleteOrThrow() {
-        execSQL(buildDeleteString());
+        execSQL(buildDeleteString(),selectionArgs());
     }
 
     public void delete() {
@@ -45,12 +45,15 @@ public class WhereHandler extends MinorWhere {
             e.printStackTrace();
         }
     }
-
-    private void execSQL(String sql) {
+    private void execSQL(String sql, Object[] bindArgs) {
         SQLiteDatabase database = null;
         try {
             database = getDatabase();
-            database.execSQL(sql);
+            if (bindArgs == null){
+                database.execSQL(sql);
+            }else {
+                database.execSQL(sql, bindArgs);
+            }
         } finally {
             SQLiteUtils.closeDatabase(database);
         }

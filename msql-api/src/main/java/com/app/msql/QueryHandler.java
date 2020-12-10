@@ -380,19 +380,4 @@ public final class QueryHandler extends DataQuery {
     protected String conditions() {
         return buildQueryString();
     }
-
-    @Override
-    protected String[] selectionArgs() {
-        if (selectionArgs != null){
-            String[] args = new String[selectionArgs.size()];
-            for (int i = 0; i < selectionArgs.size(); i++) {
-                Object obj = selectionArgs.get(i);
-                if (obj != null){
-                    args[i] = String.valueOf(obj);
-                }
-            }
-            return args;
-        }
-        return null;
-    }
 }
