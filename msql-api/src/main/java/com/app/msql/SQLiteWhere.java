@@ -797,7 +797,7 @@ public class SQLiteWhere {
      * @return
      */
     public SQLiteWhere OrStartWith(String column, String condition) {
-        return where(true, column, " GLOB ?").addArgs(condition + "%");
+        return where(true, column, " GLOB ?").addArgs(condition + "*");
     }
 
     /**
@@ -809,7 +809,7 @@ public class SQLiteWhere {
      * @return
      */
     public SQLiteWhere OrEndWith(String column, String condition) {
-        return where(true, column, " GLOB ?").addArgs("%" + condition);
+        return where(true, column, " GLOB ?").addArgs("*" + condition);
     }
 
     /**
@@ -821,7 +821,7 @@ public class SQLiteWhere {
      * @return
      */
     public SQLiteWhere OrContain(String column, String condition) {
-        return where(true, column, " GLOB ?").addArgs("%" + condition + "%");
+        return where(true, column, " GLOB ?").addArgs("*" + condition + "*");
     }
 
 }
