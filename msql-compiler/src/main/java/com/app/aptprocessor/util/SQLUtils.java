@@ -2,6 +2,7 @@ package com.app.aptprocessor.util;
 
 import com.app.aptprocessor.processor.SQLParams;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
@@ -104,23 +105,10 @@ public class SQLUtils {
         return params;
     }
 
-    public static String getUniqueColumn(Map<String, SQLParams> paramsMap) {
-        SQLParams[] paramsArray = getParamsArray(paramsMap);
-        for (int i = 0; i < paramsArray.length; i++) {
-            SQLParams sqlParams = paramsArray[i];
-            if (sqlParams.unique) {
-//                list.add(sqlParams);
-                return sqlParams.name;
-            }
-        }
-        return null;
-    }
-
     public static StringBuilder getSQLCreateBuilder(Map<String, SQLParams> paramsMap) {
         SQLParams[] paramsArray = getParamsArray(paramsMap);
         StringBuilder builder = new StringBuilder("CREATE TABLE '%s' (_ID INTEGER PRIMARY KEY AUTOINCREMENT,");
-//        java.util.List<SQLParams> list = new ArrayList<>();
-        SQLParams unique = null;
+        java.util.List<SQLParams> uniqueList = new ArrayList<>();
         for (int i = 0; i < paramsArray.length; i++) {
             SQLParams sqlParams = paramsArray[i];
             builder.append("'");
@@ -136,34 +124,31 @@ public class SQLUtils {
                 builder.append("'");
             }
             if (sqlParams.unique) {
-//                list.add(sqlParams);
-                if (unique == null) unique = sqlParams;
+                uniqueList.add(sqlParams);
             }
             if (i < paramsArray.length - 1) {
                 builder.append(",");
             }
         }
-//        if (list.size() == 1) {
-        //这里只能有一列设置为 unique
-        if (unique != null) {
+        if (uniqueList.size() == 1) {
             builder.append(",UNIQUE ('");
-//            SQLParams sqlParams = list.get(0);
-            builder.append(unique.name);
+            SQLParams sqlParams = uniqueList.get(0);
+            builder.append(sqlParams.name);
             builder.append("') ");
+        } else if (uniqueList.size() >= 1) {
+            builder.append(",CONSTRAINT uc_%sID UNIQUE (");
+            for (int i = 0; i < uniqueList.size(); i++) {
+                if (i > 0) {
+                    builder.append(",");
+                }
+                SQLParams sqlParams = uniqueList.get(i);
+                builder.append("'");
+                builder.append(sqlParams.name);
+                builder.append("'");
+            }
+            builder.append(")");
         }
-//        } else if (list.size() >= 1) {
-//            builder.append(",CONSTRAINT uc_%sID UNIQUE (");
-//            for (int i = 0; i < list.size(); i++) {
-//                SQLParams sqlParams = list.get(i);
-//                builder.append("'");
-//                builder.append(sqlParams.name);
-//                builder.append("'");
-//                if (i < list.size() - 1) {
-//                    builder.append(",");
-//                }
-//            }
-//            builder.append(")");
-//        }
+
         builder.append(")");
         return builder;
     }

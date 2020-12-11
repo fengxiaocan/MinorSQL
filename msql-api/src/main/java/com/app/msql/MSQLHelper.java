@@ -237,7 +237,7 @@ public final class MSQLHelper {
         return new QueryHandler(MSQLHelper.DefaultDbName(), tableName);
     }
 
-    public static WhereHandler where(String tableName) {
-        return new WhereHandler(MSQLHelper.DefaultDbName(), tableName);
+    public static OperationHandler operation(String tableName) {
+        return new OperationHandler(MSQLHelper.DefaultDbName(), tableName);
     }
 }

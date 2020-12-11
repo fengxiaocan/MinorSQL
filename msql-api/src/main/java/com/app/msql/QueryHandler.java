@@ -80,257 +80,6 @@ public final class QueryHandler extends DataQuery {
         return this;
     }
 
-    /**
-     * 构建 AND WHERE SQl 语句
-     *
-     * @param whereClause 查询语句,需要自己添加?替代符: column = ?
-     * @param condition   查询条件的值,大小不能少于?的数量
-     * @return
-     */
-    @Override
-    public QueryHandler whereSql(String whereClause, Object... condition) {
-        return (QueryHandler)super.whereSql(whereClause, condition);
-    }
-
-    /**
-     * 构建 OR WHERE SQl 语句
-     *
-     * @param whereClause 查询语句,需要自己添加?替代符: column = ?
-     * @param condition   查询条件的值,大小不能少于?的数量
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereSql(String whereClause, Object... condition) {
-        return (QueryHandler)super.orWhereSql(whereClause, condition);
-    }
-
-    /**
-     * 构建 AND column IN(?,?...?) 查询条件语句
-     *
-     * @param column     查询的行的名称
-     * @param conditions 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereIn(String column, Object... conditions) {
-        return (QueryHandler)super.whereIn(column, conditions);
-    }
-
-    /**
-     * 构建 OR column IN(?,?...?) 查询条件语句
-     *
-     * @param column     查询的行的名称
-     * @param conditions 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereIn(String column, Object... conditions) {
-        return (QueryHandler)super.orWhereIn(column, conditions);
-    }
-
-    /**
-     * 构建 AND column IN(?,?...?) 查询条件语句
-     *
-     * @param column 查询的行的名称
-     * @param list   查询条件值的集合
-     * @return
-     */
-    @Override
-    public QueryHandler whereIn(String column, List<Object> list) {
-        return (QueryHandler)super.whereIn(column, list);
-    }
-
-    /**
-     * 构建 OR column IN(?,?...?) 查询条件语句
-     *
-     * @param column 查询的行的名称
-     * @param list   查询条件值的集合
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereIn(String column, List<Object> list) {
-        return (QueryHandler)super.orWhereIn(column, list);
-    }
-
-    /**
-     * 构建以ID为查询条件语句
-     *
-     * @param ids 查询的ID值
-     * @return
-     */
-    @Override
-    public QueryHandler whereId(long... ids) {
-        return (QueryHandler)super.whereId(ids);
-    }
-
-    /**
-     * 构建 AND column LIKE ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereLike(String column, Object condition) {
-        return (QueryHandler)super.whereLike(column, condition);
-    }
-
-    /**
-     * 构建 AND column = ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereEqual(String column, Object condition) {
-        return (QueryHandler)super.whereEqual(column, condition);
-    }
-
-    /**
-     * 构建 AND column != ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereNoEqual(String column, Object condition) {
-        return (QueryHandler)super.whereNoEqual(column, condition);
-    }
-
-    /**
-     * 构建 AND column > ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereGreater(String column, Object condition) {
-        return (QueryHandler)super.whereGreater(column, condition);
-    }
-
-    /**
-     * 构建 AND column < ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereLess(String column, Object condition) {
-        return (QueryHandler)super.whereLess(column, condition);
-    }
-
-    /**
-     * 构建 AND column < ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereNoGreater(String column, Object condition) {
-        return (QueryHandler)super.whereNoGreater(column, condition);
-    }
-
-    /**
-     * 构建 AND column >= ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler whereNoLess(String column, Object condition) {
-        return (QueryHandler)super.whereNoLess(column, condition);
-    }
-
-    /**
-     * 构建 OR column LIKE ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereLike(String column, Object condition) {
-        return (QueryHandler)super.orWhereLike(column, condition);
-    }
-
-    /**
-     * 构建 OR column = ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereEqual(String column, Object condition) {
-        return (QueryHandler)super.orWhereEqual(column, condition);
-    }
-
-    /**
-     * 构建 OR column != ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereNoEqual(String column, Object condition) {
-        return (QueryHandler)super.orWhereNoEqual(column, condition);
-    }
-
-    /**
-     * 构建 OR column > ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereGreater(String column, Object condition) {
-        return (QueryHandler)super.orWhereGreater(column, condition);
-    }
-
-    /**
-     * 构建 OR column < ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereLess(String column, Object condition) {
-        return (QueryHandler)super.orWhereLess(column, condition);
-    }
-
-    /**
-     * 构建 OR column <= ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereNoGreater(String column, Object condition) {
-        return (QueryHandler)super.orWhereNoGreater(column, condition);
-    }
-
-    /**
-     * 构建 OR column >= ? 查询条件语句
-     *
-     * @param column    查询的行的名称
-     * @param condition 查询条件值
-     * @return
-     */
-    @Override
-    public QueryHandler orWhereNoLess(String column, Object condition) {
-        return (QueryHandler)super.orWhereNoLess(column, condition);
-    }
-
     private String buildQueryString() {
         if (TextUtils.isEmpty(groupBy) && !TextUtils.isEmpty(having)) {
             throw new IllegalArgumentException(
@@ -379,5 +128,301 @@ public final class QueryHandler extends DataQuery {
     @Override
     protected String conditions() {
         return buildQueryString();
+    }
+
+
+    @Override
+    public QueryHandler whereSql(String whereClause, Object... condition) {
+        return (QueryHandler)super.whereSql(whereClause, condition);
+    }
+
+    @Override
+    public QueryHandler orWhereSql(String whereClause, Object... condition) {
+        return (QueryHandler)super.orWhereSql(whereClause, condition);
+    }
+
+    @Override
+    public QueryHandler AndBracket(SQLiteWhere where) {
+        return (QueryHandler)super.AndBracket(where);
+    }
+
+    @Override
+    public QueryHandler OrBracket(SQLiteWhere where) {
+        return (QueryHandler)super.OrBracket(where);
+    }
+
+    @Override
+    public QueryHandler In(String column, Object... conditions) {
+        return (QueryHandler)super.In(column, conditions);
+    }
+
+    @Override
+    public QueryHandler OrIn(String column, Object... conditions) {
+        return (QueryHandler)super.OrIn(column, conditions);
+    }
+
+    @Override
+    public QueryHandler NotIn(String column, Object... conditions) {
+        return (QueryHandler)super.NotIn(column, conditions);
+    }
+
+    @Override
+    public QueryHandler OrNotIn(String column, Object... conditions) {
+        return (QueryHandler)super.OrNotIn(column, conditions);
+    }
+
+    @Override
+    public QueryHandler In(String column, List<Object> list) {
+        return (QueryHandler)super.In(column, list);
+    }
+
+    @Override
+    public QueryHandler OrIn(String column, List<Object> list) {
+        return (QueryHandler)super.OrIn(column, list);
+    }
+
+    @Override
+    public QueryHandler NotIn(String column, List<Object> list) {
+        return (QueryHandler)super.NotIn(column, list);
+    }
+
+    @Override
+    public QueryHandler OrNotIn(String column, List<Object> list) {
+        return (QueryHandler)super.OrNotIn(column, list);
+    }
+
+    @Override
+    public QueryHandler InSqlID(long... ids) {
+        return (QueryHandler)super.InSqlID(ids);
+    }
+
+    @Override
+    public QueryHandler Like(String column, String condition) {
+        return (QueryHandler)super.Like(column, condition);
+    }
+
+    @Override
+    public QueryHandler Glob(String column, String condition) {
+        return (QueryHandler)super.Glob(column, condition);
+    }
+
+    @Override
+    public QueryHandler StartWith(String column, String condition) {
+        return (QueryHandler)super.StartWith(column, condition);
+    }
+
+    @Override
+    public QueryHandler EndWith(String column, String condition) {
+        return (QueryHandler)super.EndWith(column, condition);
+    }
+
+    @Override
+    public QueryHandler Contain(String column, String condition) {
+        return (QueryHandler)super.Contain(column, condition);
+    }
+
+    @Override
+    public QueryHandler Equal(String column, Object condition) {
+        return (QueryHandler)super.Equal(column, condition);
+    }
+
+    @Override
+    public QueryHandler NoEqual(String column, Object condition) {
+        return (QueryHandler)super.NoEqual(column, condition);
+    }
+
+    @Override
+    public QueryHandler Greater(String column, Object condition) {
+        return (QueryHandler)super.Greater(column, condition);
+    }
+
+    @Override
+    public QueryHandler Less(String column, Object condition) {
+        return (QueryHandler)super.Less(column, condition);
+    }
+
+    @Override
+    public QueryHandler NoGreater(String column, Object condition) {
+        return (QueryHandler)super.NoGreater(column, condition);
+    }
+
+    @Override
+    public QueryHandler NoLess(String column, Object condition) {
+        return (QueryHandler)super.NoLess(column, condition);
+    }
+
+    @Override
+    public QueryHandler Between(String column, Object condition1, Object condition2) {
+        return (QueryHandler)super.Between(column, condition1, condition2);
+    }
+
+    @Override
+    public QueryHandler IsNull(String column) {
+        return (QueryHandler)super.IsNull(column);
+    }
+
+    @Override
+    public QueryHandler IsNotNull(String column) {
+        return (QueryHandler)super.IsNotNull(column);
+    }
+
+    @Override
+    public QueryHandler EqualBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.EqualBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler NoEqualBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.NoEqualBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler GreaterBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.GreaterBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler LessBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.LessBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler NoGreaterBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.NoGreaterBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler NoLessBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.NoLessBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler BetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (QueryHandler)super.BetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public QueryHandler ExistsBracket(SQLiteWhere where) {
+        return (QueryHandler)super.ExistsBracket(where);
+    }
+
+    @Override
+    public QueryHandler OrLike(String column, String condition) {
+        return (QueryHandler)super.OrLike(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrEqual(String column, Object condition) {
+        return (QueryHandler)super.OrEqual(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrNoEqual(String column, Object condition) {
+        return (QueryHandler)super.OrNoEqual(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrGreater(String column, Object condition) {
+        return (QueryHandler)super.OrGreater(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrLess(String column, Object condition) {
+        return (QueryHandler)super.OrLess(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrNoGreater(String column, Object condition) {
+        return (QueryHandler)super.OrNoGreater(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrNoLess(String column, Object condition) {
+        return (QueryHandler)super.OrNoLess(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrBetween(String column, Object condition1, Object condition2) {
+        return (QueryHandler)super.OrBetween(column, condition1, condition2);
+    }
+
+    @Override
+    public QueryHandler OrIsNull(String column) {
+        return (QueryHandler)super.OrIsNull(column);
+    }
+
+    @Override
+    public QueryHandler OrIsNotNull(String column) {
+        return (QueryHandler)super.OrIsNotNull(column);
+    }
+
+    @Override
+    public QueryHandler OrEqualBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrEqualBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrNoEqualBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrNoEqualBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrGreaterBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrGreaterBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrLessBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrLessBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrNoGreaterBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrNoGreaterBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrNoLessBracket(String column, SQLiteWhere where) {
+        return (QueryHandler)super.OrNoLessBracket(column, where);
+    }
+
+    @Override
+    public QueryHandler OrBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (QueryHandler)super.OrBetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public QueryHandler OrExistsBracket(SQLiteWhere where) {
+        return (QueryHandler)super.OrExistsBracket(where);
+    }
+
+    @Override
+    public QueryHandler OrGlob(String column, String condition) {
+        return (QueryHandler)super.OrGlob(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrStartWith(String column, String condition) {
+        return (QueryHandler)super.OrStartWith(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrEndWith(String column, String condition) {
+        return (QueryHandler)super.OrEndWith(column, condition);
+    }
+
+    @Override
+    public QueryHandler OrContain(String column, String condition) {
+        return (QueryHandler)super.OrContain(column, condition);
+    }
+
+    @Override
+    public QueryHandler Max(String column) {
+        return (QueryHandler) super.Max(column);
+    }
+
+    @Override
+    public QueryHandler Min(String column) {
+        return (QueryHandler) super.Min(column);
     }
 }

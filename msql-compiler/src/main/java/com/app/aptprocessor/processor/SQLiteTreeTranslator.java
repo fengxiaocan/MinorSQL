@@ -92,22 +92,13 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
                 hashSet.add(replace(jcClassDecl));
                 hashSet.add(replaceOrThrow(jcClassDecl));
 
-                //hashSet.add(update(jcClassDecl));
-                //hashSet.add(update2(jcClassDecl));
-                //hashSet.add(update3(jcClassDecl));
-                //hashSet.add(update4(jcClassDecl));
-                hashSet.add(update5(jcClassDecl));
+                hashSet.add(update1(jcClassDecl));
                 hashSet.add(update());
 
-                //hashSet.add(updateOrThrow(jcClassDecl));
-                //hashSet.add(updateOrThrow2(jcClassDecl));
-                //hashSet.add(updateOrThrow3(jcClassDecl));
-                //hashSet.add(updateOrThrow4(jcClassDecl));
                 hashSet.add(updateOrThrow5(jcClassDecl));
                 hashSet.add(updateOrThrow());
 
                 hashSet.add(defaultTableName());
-//                hashSet.add(uniqueColumn());
 
                 jcClassDecl.defs = List.from(hashSet);
 
@@ -549,7 +540,6 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
         JCTree.JCMethodInvocation idData = jcHelper.callMethod("cursor.getLong", idIndex);
         //data.setSQLiteID
         buffer.append(jcHelper.execMethod("data.setSQLiteID", idData));
-//        buffer.append(jcHelper.ExecAssign(jcHelper.Access("data.aLong"),idData));
 
         for (String keySet : paramsMap.keySet()) {
             SQLParams params = paramsMap.get(keySet);
@@ -834,86 +824,11 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
     }
 
     /**
-     * public int update(String tableName, long... ids)
-     */
-    private JCTree.JCMethodDecl update(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("name", "String", dec);
-        JCTree.JCVariableDecl idsPar = jcHelper.VariesArrayMethodParams("ids", jcHelper.LongVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, idsPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("name");
-        JCTree.JCIdent ids = jcHelper.Ident("ids");
-        JCTree.JCExpression clause = jcHelper.Access(SQL_UTILS,"SQL_WHERE_CLAUSE");
-        JCTree.JCMethodInvocation longToString = jcHelper.callMethod(SQL_UTILS, "longToString", ids);
-        JCTree.JCMethodInvocation method = jcHelper.callMethod( "update", name, clause,longToString);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("update", returnType, parameter, block);
-    }
-
-    /**
-     * public int update(String whereClause, String... conditions)
-     */
-    private JCTree.JCMethodDecl update2(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("whereClause", "String", dec);
-        JCTree.JCVariableDecl strPar = jcHelper.VariesArrayMethodParams("conditions", jcHelper.StringVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, strPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("whereClause");
-        JCTree.JCIdent thisIdent = jcHelper.Ident("this");
-        JCTree.JCIdent conditions = jcHelper.Ident("conditions");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "update", jcHelper.NullValue(), DEFAULT_TABLE_FIELD, thisIdent, name, conditions);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("update", returnType, parameter, block);
-    }
-
-    /**
-     * public int update(String tableName, String whereClause, String... conditions)
-     */
-    private JCTree.JCMethodDecl update3(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("name", "String", dec);
-        JCTree.JCVariableDecl wherePar = jcHelper.MethodParams("whereClause", "String", dec);
-        JCTree.JCVariableDecl strPar = jcHelper.VariesArrayMethodParams("conditions", jcHelper.StringVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, wherePar, strPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("name");
-        JCTree.JCIdent whereClause = jcHelper.Ident("whereClause");
-        JCTree.JCIdent thisIdent = jcHelper.Ident("this");
-        JCTree.JCIdent conditions = jcHelper.Ident("conditions");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "update", jcHelper.NullValue(), name, thisIdent, whereClause, conditions);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("update", returnType, parameter, block);
-    }
-
-
-    /**
-     * public int update(long... ids)
-     */
-    private JCTree.JCMethodDecl update4(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl idsPar = jcHelper.VariesArrayMethodParams("ids", jcHelper.LongVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(idsPar);
-
-        JCTree.JCIdent ids = jcHelper.Ident("ids");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod("update", DEFAULT_TABLE_FIELD, ids);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("update", returnType, parameter, block);
-    }
-
-    /**
      * public int update(String tableName)
      */
-    private JCTree.JCMethodDecl update5(JCTree.JCClassDecl dec) {
+    private JCTree.JCMethodDecl update1(JCTree.JCClassDecl dec) {
         JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
         JCTree.JCIdent name = jcHelper.Ident("name");
-//        JCTree.JCMethodInvocation liteID = jcHelper.callMethod("getSQLiteID");
-//        JCTree.JCMethodInvocation method = jcHelper.callMethod("update", name, liteID);
         JCTree.JCIdent thisIdent = jcHelper.Ident("this");
         JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "update", jcHelper.NullValue(), name,thisIdent);
 
@@ -926,8 +841,6 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
      */
     private JCTree.JCMethodDecl update() {
         JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-//        JCTree.JCMethodInvocation liteID = jcHelper.callMethod("getSQLiteID");
-//        JCTree.JCMethodInvocation method = jcHelper.callMethod("update", liteID);
         JCTree.JCMethodInvocation method = jcHelper.callMethod("update", DEFAULT_TABLE_FIELD);
 
         JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
@@ -936,86 +849,11 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
 
 
     /**
-     * public int updateOrThrow(String tableName, long... ids)
-     */
-    private JCTree.JCMethodDecl updateOrThrow(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("name", "String", dec);
-        JCTree.JCVariableDecl idsPar = jcHelper.VariesArrayMethodParams("ids", jcHelper.LongVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, idsPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("name");
-        JCTree.JCIdent ids = jcHelper.Ident("ids");
-        JCTree.JCExpression clause = jcHelper.Access(SQL_UTILS,"SQL_WHERE_CLAUSE");
-        JCTree.JCMethodInvocation longToString = jcHelper.callMethod(SQL_UTILS, "longToString", ids);
-        JCTree.JCMethodInvocation method = jcHelper.callMethod( "updateOrThrow", name, clause,longToString);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("updateOrThrow", returnType, parameter, block);
-    }
-
-    /**
-     * public int updateOrThrow(String whereClause, String... conditions)
-     */
-    private JCTree.JCMethodDecl updateOrThrow2(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("whereClause", "String", dec);
-        JCTree.JCVariableDecl strPar = jcHelper.VariesArrayMethodParams("conditions", jcHelper.StringVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, strPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("whereClause");
-        JCTree.JCIdent thisIdent = jcHelper.Ident("this");
-        JCTree.JCIdent conditions = jcHelper.Ident("conditions");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "updateOrThrow", jcHelper.NullValue(), DEFAULT_TABLE_FIELD, thisIdent, name, conditions);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("updateOrThrow", returnType, parameter, block);
-    }
-
-    /**
-     * public int updateOrThrow(String tableName, String whereClause, String... conditions)
-     */
-    private JCTree.JCMethodDecl updateOrThrow3(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl namePar = jcHelper.MethodParams("name", "String", dec);
-        JCTree.JCVariableDecl wherePar = jcHelper.MethodParams("whereClause", "String", dec);
-        JCTree.JCVariableDecl strPar = jcHelper.VariesArrayMethodParams("conditions", jcHelper.StringVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(namePar, wherePar, strPar);
-
-        JCTree.JCIdent name = jcHelper.Ident("name");
-        JCTree.JCIdent whereClause = jcHelper.Ident("whereClause");
-        JCTree.JCIdent thisIdent = jcHelper.Ident("this");
-        JCTree.JCIdent conditions = jcHelper.Ident("conditions");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "updateOrThrow", jcHelper.NullValue(), name, thisIdent, whereClause, conditions);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("updateOrThrow", returnType, parameter, block);
-    }
-
-
-    /**
-     * public int updateOrThrow(long... ids)
-     */
-    private JCTree.JCMethodDecl updateOrThrow4(JCTree.JCClassDecl dec) {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-        // 生成方法参数
-        JCTree.JCVariableDecl idsPar = jcHelper.VariesArrayMethodParams("ids", jcHelper.LongVarargsArray(), dec);
-        List<JCTree.JCVariableDecl> parameter = List.of(idsPar);
-
-        JCTree.JCIdent ids = jcHelper.Ident("ids");
-        JCTree.JCMethodInvocation method = jcHelper.callMethod("updateOrThrow", DEFAULT_TABLE_FIELD, ids);
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
-        return jcHelper.makePublicMethod("updateOrThrow", returnType, parameter, block);
-    }
-
-    /**
      * public int updateOrThrow(String tableName)
      */
     private JCTree.JCMethodDecl updateOrThrow5(JCTree.JCClassDecl dec) {
         JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
         JCTree.JCIdent name = jcHelper.Ident("name");
-//        JCTree.JCMethodInvocation liteID = jcHelper.callMethod("getSQLiteID");
-//        JCTree.JCMethodInvocation method = jcHelper.callMethod("updateOrThrow", name, liteID);
         JCTree.JCIdent thisIdent = jcHelper.Ident("this");
         JCTree.JCMethodInvocation method = jcHelper.callMethod(SQL_UTILS, "updateOrThrow", jcHelper.NullValue(), name,thisIdent);
 
@@ -1028,8 +866,6 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
      */
     private JCTree.JCMethodDecl updateOrThrow() {
         JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.intType());
-//        JCTree.JCMethodInvocation liteID = jcHelper.callMethod("getSQLiteID");
-//        JCTree.JCMethodInvocation method = jcHelper.callMethod("updateOrThrow", liteID);
         JCTree.JCMethodInvocation method = jcHelper.callMethod("updateOrThrow", DEFAULT_TABLE_FIELD);
 
         JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(method));
@@ -1043,15 +879,6 @@ public class SQLiteTreeTranslator extends BaseTreeTranslator {
         JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.stringType());
         JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(DEFAULT_TABLE_FIELD));
         return jcHelper.makePublicMethod("defaultTableName", returnType, block);
-    }
-    /**
-     * public int updateOrThrow()
-     */
-    private JCTree.JCMethodDecl uniqueColumn() {
-        JCTree.JCExpression returnType = jcHelper.Type2Expression(jcHelper.stringType());
-        JCTree.JCLiteral literal = jcHelper.Value(SQLUtils.getUniqueColumn(paramsMap));
-        JCTree.JCBlock block = jcHelper.Block(jcHelper.Return(literal));
-        return jcHelper.makePublicMethod("uniqueColumn", returnType, block);
     }
 
 }

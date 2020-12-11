@@ -15,7 +15,6 @@ public class TestV extends SQLSupport {
     private char cha = 1;
     @Column(unique = true)
     private String tag;
-
     private String ver;
 
     public String ver() {

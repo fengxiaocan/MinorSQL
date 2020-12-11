@@ -1,7 +1,6 @@
 package com.app.msqltext;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.app.msql.MSQLHelper;
-import com.app.thread.DataCallback;
+import com.app.msql.SQLiteWhere;
 import com.box.libs.DebugBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,22 +33,30 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> {
             new Thread(() -> {
-                final int count = 4;
-                TestV[] array = new TestV[count];
-                for (int i = 0; i < count; i++) {
-                    TestV testV = new TestV();
-                    testV.setTag("testV"+i);
-                    testV.setName("182397128371298");
-                    testV.setTimes(123);
-                    array[i]=testV;
+//                Random random = new Random();
+//                final int count = 500;
+//                TestV[] array = new TestV[count];
+//                for (int i = 0; i < count; i++) {
+//                    TestV testV = new TestV();
+//                    testV.setTag("testV"+i);
+//                    testV.setName("感谢您访问数字尾巴");
+//                    testV.setTimes(System.currentTimeMillis());
+//                    testV.setVersion(random.nextInt(100));
+//                    array[i]=testV;
+//                }
+//                MSQLHelper.SQL().replace(array);
+
+//                SystemClock.sleep(100);
+
+                List<TestV> list = MSQLHelper.SQL()
+                        .model(TestV.class)
+                        .query()
+                        .Min("version")
+                        .find(TestV.class);
+                Log.e("noah","size="+list.size());
+                for (TestV testV : list) {
+                    Log.e("noah",testV.tag()+" --> "+testV.version());
                 }
-//                MSQLHelper.SQL().insert(array);
-                SystemClock.sleep(100);
-//                TestV testV = new TestV();
-//                testV.setTag("testV11");
-//                testV.setName("sdaji");
-//                testV.setTimes(12323);
-                MSQLHelper.SQL().update(array);
             }).start();
         });
         DebugBox.get().open();

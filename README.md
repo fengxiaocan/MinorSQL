@@ -22,7 +22,9 @@
 
 `11.支持链式调用方法操作查询条件语句,只需要传入数据表的行名,不需要自己手动写 where 查询语句`
 
-`12.暂时只支持基本数据类型的数据库表映射，其他类型不会映射成数据表名称`
+`12.支持 GLOB、EXISTS、LIKE 等语法`
+
+`13.暂时只支持基本数据类型的数据库表映射，其他类型不会映射成数据表名称`
 
 
 ## 2、依赖:
@@ -171,34 +173,47 @@
     orWhereSql(String whereClause, Object... condition);
     
     //构建 AND column IN(?,?...?) 查询条件语句
-    whereIn(String column, Object... conditions);
+    InSqlID(String column, Object... conditions);
     
     //构建 AND column IN(?,?...?) 查询条件语句
-    whereIn(String column, List<T> list);
+    InSqlID(String column, List<T> list);
 
     //构建以ID为查询条件语句
-    whereId(long... ids);
+    InSqlID(long... ids);
 
     //构建 AND column LIKE ? 查询条件语句
-    whereLike(String column, Object condition);
+    Like(String column, Object condition);
 
     //构建 AND column = ? 查询条件语句
-    whereEqual(String column, Object condition);
+    Equal(String column, Object condition);
 
     //构建 AND column != ? 查询条件语句
-    whereNoEqual(String column, Object condition);
+    NoEqual(String column, Object condition);
     
     //构建 AND column > ? 查询条件语句
-    whereGreater(String column, Object condition);
+    Greater(String column, Object condition);
 
     //构建 AND column < ? 查询条件语句
-    whereLess(String column, Object condition);
+    Less(String column, Object condition);
 
     //构建 AND column < ? 查询条件语句
-    whereNoGreater(String column, Object condition);
+    NoGreater(String column, Object condition);
 
     //构建 AND column >= ? 查询条件语句
-    whereNoLess(String column, Object condition);
+    NoLess(String column, Object condition);   
+    
+    //查询Column最大值的条件语句
+    Max(String column); 
+    
+    //查询Column最小值的条件语句
+    Min(String column);
+    
+    //是否为Null值条件语句
+    IsNull(String column);
+    
+    //添加一个括号,括号里为另一个查询语句
+    AndBracket(SQLiteWhere where);
+    OrAndBracket(SQLiteWhere where);
 
 ## 4、例子
 
@@ -226,17 +241,17 @@
     //6.查询所有的数据
     List<JavaBean> list = MSQLHelper.SQL(dbName).table(JavaBeanSQL.otherTableName).asQuery().find(JavaBean.class);
     //7.查询age字段为40,50,60的所有数据
-    List<JavaBean> list = MSQLHelper.SQL().model(JavaBean.class).asQuery().whereIn("age",40,50,60).find(JavaBean.class);
+    List<JavaBean> list = MSQLHelper.SQL().model(JavaBean.class).asQuery().InSqlID("age",40,50,60).find(JavaBean.class);
     //8.查询age字段大于100的最后一条数据
-    JavaBean bean = MSQLHelper.SQL().model(JavaBean.class).asQuery().whereGreater("age",100).findLast(JavaBean.class);
+    JavaBean bean = MSQLHelper.SQL().model(JavaBean.class).asQuery().Greater("age",100).findLast(JavaBean.class);
     //9.查询age字段小于5的第一条数据
-    JavaBean bean = MSQLHelper.SQL().model(JavaBean.class).asQuery().whereLess("age",100).findFirst(JavaBean.class);
+    JavaBean bean = MSQLHelper.SQL().model(JavaBean.class).asQuery().Less("age",100).findFirst(JavaBean.class);
     //10.查询id为1,2,3,4,5的所有数据
-    List<JavaBean> list = MSQLHelper.SQL().model(JavaBean.class).asQuery().whereId(1,2,3,4,5).find(JavaBean.class);
+    List<JavaBean> list = MSQLHelper.SQL().model(JavaBean.class).asQuery().InSqlID(1,2,3,4,5).find(JavaBean.class);
     //11.异步查询id为1,2,3,4,5的所有数据,回调在主线程
     MSQLHelper.SQL().model(JavaBean.class)
               .asQuery()
-              .whereId(1,2,3,4,5)
+              .InSqlID(1,2,3,4,5)
               .findAsync(JavaBean.class)
               .mainListen(new DataCallback<List<JavaBean>>() {
                     @Override
@@ -248,7 +263,7 @@
     //12.更新age为5的数据
     MSQLHelper.SQL().model(JavaBean.class)
               .asWhere()
-              .whereEqual(JavaBeanSQL.age,5)
+              .Equal(JavaBeanSQL.age,5)
               .update(bean);
                
     //13.创建一个临时数据库并插入数据

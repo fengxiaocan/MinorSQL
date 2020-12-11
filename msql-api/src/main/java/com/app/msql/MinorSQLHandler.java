@@ -10,12 +10,8 @@ public class MinorSQLHandler extends MinorSQL {
         return new QueryHandler(databaseName, tableName);
     }
 
-    public WhereHandler asWhere() {
-        return new WhereHandler(databaseName, tableName);
-    }
-
-    public QueryHandler asQuery() {
-        return new QueryHandler(databaseName, tableName);
+    public OperationHandler operation() {
+        return new OperationHandler(databaseName, tableName);
     }
 
     public int count() {
