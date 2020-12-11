@@ -47,6 +47,10 @@ public class SQLiteWhere {
         }
     }
 
+    public StringBuilder whereBuilder() {
+        return whereBuilder;
+    }
+
     /**
      * 构建一个 SELECT column FORM table WHERE 的语句
      *
