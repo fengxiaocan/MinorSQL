@@ -430,6 +430,36 @@ public class OperationHandler extends MinorWhere {
     }
 
     @Override
+    public OperationHandler NotBetween(String column, Object condition1, Object condition2) {
+        return (OperationHandler) super.NotBetween(column, condition1, condition2);
+    }
+
+    @Override
+    public OperationHandler NotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (OperationHandler) super.NotBetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public OperationHandler NotExistsBracket(SQLiteWhere where) {
+        return (OperationHandler) super.NotExistsBracket(where);
+    }
+
+    @Override
+    public OperationHandler OrNotBetween(String column, Object condition1, Object condition2) {
+        return (OperationHandler) super.OrNotBetween(column, condition1, condition2);
+    }
+
+    @Override
+    public OperationHandler OrNotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (OperationHandler) super.OrNotBetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public OperationHandler OrNotExistsBracket(SQLiteWhere where) {
+        return (OperationHandler) super.OrNotExistsBracket(where);
+    }
+
+    @Override
     public OperationHandler Max(String column) {
         return (OperationHandler) super.Max(column);
     }

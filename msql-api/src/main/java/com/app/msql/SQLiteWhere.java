@@ -465,6 +465,19 @@ public class SQLiteWhere {
         return where(false, column, " BETWEEN ? AND ?").addArgs(condition1).addArgs(condition2);
     }
 
+
+    /**
+     * 构建 AND column NOT BETWEEN  ? AND ? 查询条件语句
+     *
+     * @param column     查询的行的名称
+     * @param condition1 查询条件值1
+     * @param condition2 查询条件值2
+     * @return
+     */
+    public SQLiteWhere NotBetween(String column, Object condition1, Object condition2) {
+        return where(false, column, " NOT BETWEEN ? AND ?").addArgs(condition1).addArgs(condition2);
+    }
+
     /**
      * 构建 AND column IS NULL 查询条件语句
      *
@@ -565,6 +578,18 @@ public class SQLiteWhere {
     }
 
     /**
+     * 构建 AND column NOT BETWEEN  (WHERE SQL 语句) AND (WHERE SQL 语句) 查询条件语句
+     *
+     * @param column 查询的行的名称
+     * @param where1 括号内的查询条件值的SQL语句1
+     * @param where2 括号内的查询条件值的SQL语句2
+     * @return
+     */
+    public SQLiteWhere NotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return where(false, column, " NOT BETWEEN ").bracket(where1).AndBracket(where2);
+    }
+
+    /**
      * 构建 EXISTS (WHERE SQL 语句)查询条件语句
      *
      * @param where 括号内的查询条件值的SQL语句
@@ -572,6 +597,16 @@ public class SQLiteWhere {
      */
     public SQLiteWhere ExistsBracket(SQLiteWhere where) {
         return where(false, "EXISTS").bracket(where);
+    }
+
+    /**
+     * 构建 NOT EXISTS (WHERE SQL 语句)查询条件语句
+     *
+     * @param where 括号内的查询条件值的SQL语句
+     * @return
+     */
+    public SQLiteWhere NotExistsBracket(SQLiteWhere where) {
+        return where(false, "NOT EXISTS").bracket(where);
     }
 
 
@@ -664,6 +699,18 @@ public class SQLiteWhere {
      */
     public SQLiteWhere OrBetween(String column, Object condition1, Object condition2) {
         return where(true, column, " BETWEEN ? AND ?").addArgs(condition1).addArgs(condition2);
+    }
+
+    /**
+     * 构建 OR BETWEEN  ? AND ? 查询条件语句
+     *
+     * @param column     查询的行的名称
+     * @param condition1 查询条件值1
+     * @param condition2 查询条件值2
+     * @return
+     */
+    public SQLiteWhere OrNotBetween(String column, Object condition1, Object condition2) {
+        return where(true, column, " NOT BETWEEN ? AND ?").addArgs(condition1).addArgs(condition2);
     }
 
     /**
@@ -765,6 +812,18 @@ public class SQLiteWhere {
         return where(true, column, " BETWEEN ").bracket(where1).AndBracket(where2);
     }
 
+    /**
+     * 构建 AND column NOT BETWEEN  (WHERE SQL 语句) AND (WHERE SQL 语句) 查询条件语句
+     *
+     * @param column 查询的行的名称
+     * @param where1 括号内的查询条件值的SQL语句1
+     * @param where2 括号内的查询条件值的SQL语句2
+     * @return
+     */
+    public SQLiteWhere OrNotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return where(true, column, " NOT BETWEEN ").bracket(where1).AndBracket(where2);
+    }
+
 
     /**
      * 构建 OR EXISTS (WHERE SQL 语句)查询条件语句
@@ -774,6 +833,15 @@ public class SQLiteWhere {
      */
     public SQLiteWhere OrExistsBracket(SQLiteWhere where) {
         return where(true, "EXISTS ").bracket(where);
+    }
+    /**
+     * 构建 OR NOT EXISTS (WHERE SQL 语句)查询条件语句
+     *
+     * @param where 括号内的查询条件值的SQL语句
+     * @return
+     */
+    public SQLiteWhere OrNotExistsBracket(SQLiteWhere where) {
+        return where(true, "NOT EXISTS ").bracket(where);
     }
 
     /**

@@ -417,6 +417,36 @@ public final class QueryHandler extends DataQuery {
     }
 
     @Override
+    public QueryHandler NotBetween(String column, Object condition1, Object condition2) {
+        return (QueryHandler)super.NotBetween(column, condition1, condition2);
+    }
+
+    @Override
+    public QueryHandler NotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (QueryHandler)super.NotBetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public QueryHandler NotExistsBracket(SQLiteWhere where) {
+        return (QueryHandler)super.NotExistsBracket(where);
+    }
+
+    @Override
+    public QueryHandler OrNotBetween(String column, Object condition1, Object condition2) {
+        return (QueryHandler)super.OrNotBetween(column, condition1, condition2);
+    }
+
+    @Override
+    public QueryHandler OrNotBetweenBracket(String column, SQLiteWhere where1, SQLiteWhere where2) {
+        return (QueryHandler)super.OrNotBetweenBracket(column, where1, where2);
+    }
+
+    @Override
+    public QueryHandler OrNotExistsBracket(SQLiteWhere where) {
+        return (QueryHandler) super.OrNotExistsBracket(where);
+    }
+
+    @Override
     public QueryHandler Max(String column) {
         return (QueryHandler) super.Max(column);
     }
