@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 List<TestV> list = MSQLHelper.SQL()
                         .model(TestV.class)
                         .query()
-                        .Min("version")
+                        .EndWith("tag","V5")
                         .find(TestV.class);
                 Log.e("noah","size="+list.size());
                 for (TestV testV : list) {
